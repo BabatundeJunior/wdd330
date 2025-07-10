@@ -1,4 +1,4 @@
-[
+const tents = [
   {
     "Id": "880RR",
     "NameWithoutBrand": "Ajax Tent - 3-Person, 3-Season",
@@ -135,3 +135,5 @@
     "FinalPrice": 69.99
   }
 ]
+
+export default tents;
