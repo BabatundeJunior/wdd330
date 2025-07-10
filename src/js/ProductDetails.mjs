@@ -27,6 +27,9 @@ export default class ProductDetails {
         cart.push(this.product);
         setLocalStorage("so-cart", cart);
         alert(`${this.product.Name} added to cart!`);
+        setTimeout(() => {
+            window.location.reload();
+        }, 1500); 
     }
 
     renderProductDetails() {
