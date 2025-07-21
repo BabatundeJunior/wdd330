@@ -40,6 +40,21 @@ export default class ProductDetails {
         const image = this.product.Image || "";
         const name = this.product.Name || "Product Name";
         const price = this.product.FinalPrice || "N/A";
+        const retailPrice = this.product.SuggestedRetailPrice || null;
+        const finalPrice = this.product.FinalPrice || null;
+        let discountHtml = "";
+
+        if (retailPrice && finalPrice && finalPrice < retailPrice) {
+            const discountAmount = retailPrice - finalPrice;
+            const discountPercent = Math.round((discountAmount / retailPrice) * 100);
+            discountHtml = `
+                <p class="product__discount">
+                    <span class="discount__badge">${discountPercent}% OFF</span>
+                    <span class="product__retail">Was $${retailPrice.toFixed(2)}</span>
+                </p>
+            `;
+        }
+
         const colorNames = this.product.Colors?.map(color => color.ColorName).join(", ") || "—";
         const description = this.product.DescriptionHtmlSimple || "No description available.";
 
@@ -52,7 +67,8 @@ export default class ProductDetails {
                     src="${image}"
                     alt="${name}"
                 />
-                <p class="product-card__price">$${price}</p>
+                <p class="product-card__price">$${finalPrice.toFixed(2)}</p>
+                ${discountHtml}
                 <p class="product__color">${colorNames}</p>
                 <p class="product__description">
                     ${description}
